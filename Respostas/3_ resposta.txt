@@ -1,0 +1,61 @@
+CREATE DATABASE [LOCACOES DE SETEMBRO];
+
+USE [LOCACOES DE SETEMBRO];
+
+CREATE TABLE CUSTOMERS(
+
+	ID INT PRIMARY KEY IDENTITY,
+	NAME VARCHAR(255) NOT NULL,
+	STREET VARCHAR(255) NOT NULL,
+	CITY VARCHAR(255) NOT NULL
+	
+);
+
+
+CREATE TABLE RENTALS(
+	
+	ID INT PRIMARY KEY IDENTITY,
+	RENTALS_DATE DATE NOT NULL,
+	ID_CUSTOMERS INTEGER NOT NULL,
+FOREIGN KEY(ID_CUSTOMERS) REFERENCES CUSTOMERS(ID)
+
+);
+
+
+INSERT INTO CUSTOMERS (NAME, STREET, CITY) VALUES
+
+('Giovanna Goncalves Oliveira','Rua Mato Grosso','Canoas'),
+('Kauã Azevedo Ribeiro','Travessa Ibiá','Uberlândia'),
+('Rebeca Barbosa Santos','Rua Observatório Meteorológico','Salvador'),
+('Sarah Carvalho Correia','Rua Antônio Carlos da Silva','Apucarana'),
+('João Almeida Lima','Rua Rio Taiuva','Ponta Grossa'),
+('Diogo Melo Dias','Rua Duzentos e Cinqüenta','Várzea Grande');
+
+
+INSERT INTO RENTALS (RENTALS_DATE, ID_CUSTOMERS) VALUES
+
+('2016-09-10', 3),
+('2016-02-09', 1),
+('2016-02-08', 4),
+('2016-02-09', 2),
+('2016-02-03', 6),
+('2016-04-04', 4);
+
+
+.\\ Eu anexei 2 respostas ao código pois testei ambas e deu certo //.
+
+
+
+Resposta 1:
+
+SELECT CUSTOMERS.NAME, RENTALS.RENTALS_DATE FROM CUSTOMERS, RENTALS WHERE CUSTOMERS.ID = RENTALS.ID_CUSTOMERS 
+AND RENTALS_DATE >= '2016-09-01' AND RENTALS_DATE <= '2016-09-30'
+
+
+
+
+Resposta 2 exibi o resultado esperado e também o mesmo mês de outros anos, porém está errada:
+
+SELECT customers.name, rentals.rentals_date FROM customers inner join rentals on customers.id = rentals.id_customers 
+where CUSTOMERS.ID = RENTALS.ID_CUSTOMERS 
+AND RENTALS_DATE >= '2016-09-01' AND RENTALS_DATE <= '2016-09-30'
