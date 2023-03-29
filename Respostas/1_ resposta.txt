@@ -1,0 +1,52 @@
+CREATE DATABASE [FILMES DE ACAO];
+
+USE [FILMES DE ACAO];
+
+
+CREATE TABLE dbo.GENRES(
+
+ID INT PRIMARY KEY IDENTITY (1, 1),
+DESCRIPTION VARCHAR(255) UNIQUE NOT NULL
+
+);
+
+
+CREATE TABLE dbo.MOVIES(
+
+ID INT PRIMARY KEY IDENTITY (1, 1),
+NAME VARCHAR(255) UNIQUE NOT NULL,
+ID_GENRES INTEGER NOT NULL,
+	FOREIGN KEY (ID_GENRES) REFERENCES GENRES (ID)
+);
+
+INSERT INTO GENRES (DESCRIPTION) VALUES
+('Animation'),
+('Horror'),
+('Action'),
+('Drama'),
+('Comedy');
+
+INSERT INTO MOVIES (NAME, ID_GENRES) VALUES 
+('Batman', 3),
+('The Battle of the Dark River', 3),
+('White Duck', 1),
+('Breaking Barriers', 4),
+('The Two Hours', 2);
+
+
+
+
+.\\ Eu anexei 2 respostas ao código pois testei ambas e deu certo //.
+
+
+Resposta 1:
+
+SELECT M.ID, M.NAME
+FROM MOVIES M, GENRES G
+WHERE M.ID_GENRES = G.ID AND G.DESCRIPTION ='Action';
+
+
+
+Resposta 2:
+
+SELECT M.ID, M.NAME FROM MOVIES M INNER JOIN GENRES G ON G.ID = ID_GENRES WHERE M.ID_GENRES = G.ID AND G.DESCRIPTION ='Action';
